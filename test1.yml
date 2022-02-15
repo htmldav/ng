@@ -7,5 +7,12 @@
   tasks:
   - name: Install Nginx Web Server on Debian Family
     apt: name=nginx update_cache=yes
+
+  - name: replace date
+    replace:
+      path: /var/www/html/index.nginx-debian.html
+      regexp: '<h1>Welcome to nginx!</h1>'      
+      replace: '<p><script> document.write(new Date().toLocaleDateString()); </script></p>'
+
   - name: restart nginx
     service: name=nginx state=restarted
